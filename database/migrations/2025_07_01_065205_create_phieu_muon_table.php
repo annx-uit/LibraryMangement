@@ -14,7 +14,6 @@ return new class extends Migration
             $table->foreignId('docgia_id')->constrained('DOCGIA');
             $table->date('NgayMuon');
             $table->date('NgayHenTra');
-            $table->timestamps();
         });
     }
 

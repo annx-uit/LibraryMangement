@@ -26,9 +26,7 @@ class LoaiDocGiaSeeder extends Seeder
 
         foreach ($loaiDocGias as $loai) {
             DB::table('LOAIDOCGIA')->insert([
-                'TenLoaiDocGia' => $loai,
-                'created_at' => now(),
-                'updated_at' => now()
+                'TenLoaiDocGia' => $loai
             ]);
         }
     }

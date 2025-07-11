@@ -32,6 +32,8 @@ class TaiKhoan extends Authenticatable
         'MatKhau' => 'hashed',
     ];
 
+    public $timestamps = false;
+
     /**
      * Get the password attribute name for authentication
      */

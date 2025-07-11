@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('NHAXUATBAN', function (Blueprint $table) {
             $table->id();
             $table->string('TenNXB');
-            $table->timestamps();
         });
     }
 

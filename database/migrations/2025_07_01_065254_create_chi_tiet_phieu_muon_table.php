@@ -14,7 +14,6 @@ return new class extends Migration
             $table->foreignId('sach_id')->constrained('SACH')->onDelete('cascade');
             $table->date('NgayTra')->nullable();
             $table->decimal('TienPhat', 15, 2)->default(0);
-            $table->timestamps();
         });
     }
 

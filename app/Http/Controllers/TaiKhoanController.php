@@ -21,7 +21,7 @@ class TaiKhoanController extends Controller
     public function index()
     {
         try {
-            $taiKhoans = TaiKhoan::with('vaiTro')->orderBy('created_at', 'desc')->get();
+            $taiKhoans = TaiKhoan::with('vaiTro')->orderBy('id', 'desc')->get();
             $vaiTros = VaiTro::all();
             
             return view('accounts', compact('taiKhoans', 'vaiTros'));
@@ -37,7 +37,7 @@ class TaiKhoanController extends Controller
     public function getAllAccounts(): JsonResponse
     {
         try {
-            $taiKhoans = TaiKhoan::with('vaiTro')->orderBy('created_at', 'desc')->get();
+            $taiKhoans = TaiKhoan::with('vaiTro')->orderBy('id', 'desc')->get();
             
             return response()->json([
                 'success' => true,

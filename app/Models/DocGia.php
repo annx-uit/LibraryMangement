@@ -34,6 +34,8 @@ class DocGia extends Model
         'NgayHetHan' => 'date'
     ];
 
+    public $timestamps = false;
+
     // Custom date format for JSON serialization
     protected $dateFormat = 'Y-m-d';
 

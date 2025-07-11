@@ -16,6 +16,8 @@ class TheLoai extends Model
         'TenTheLoai',
     ];
 
+    public $timestamps = false;
+
     public function saches()
     {
         return $this->belongsToMany(Sach::class, 'SACH_THELOAI', 'theloai_id', 'sach_id');

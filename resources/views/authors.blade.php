@@ -492,7 +492,7 @@
       {
         id: {{ $tacGia->id }},
         name: '{{ addslashes($tacGia->TenTacGia) }}',
-        dateAdded: '{{ $tacGia->created_at ? $tacGia->created_at->format("Y-m-d") : date("Y-m-d") }}',
+        dateAdded: '{{ date("Y-m-d") }}',
       },
     @endforeach
   ];
@@ -626,7 +626,7 @@
           authors.push({
             id: response.data.id,
             name: response.data.TenTacGia,
-            dateAdded: response.data.created_at ? response.data.created_at.split('T')[0] : new Date().toISOString().split('T')[0]
+                            dateAdded: new Date().toISOString().split('T')[0]
           });
           showToast('Thêm tác giả thành công!');
         }

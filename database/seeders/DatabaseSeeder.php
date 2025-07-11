@@ -15,13 +15,7 @@ class DatabaseSeeder extends Seeder
     {   
         $this->call([
             VaiTroSeeder::class,
-            QuyDinhSeeder::class,
-            LoaiDocGiaSeeder::class,
-            DocGiaSeeder::class,
-            TheLoaiSeeder::class,
-            TacGiaSeeder::class,
-            NhaXuatBanSeeder::class,
-            SachSeeder::class,
+            SampleDataSeeder::class, // Seeder tổng hợp với dữ liệu đa dạng
         ]);
     }
 }

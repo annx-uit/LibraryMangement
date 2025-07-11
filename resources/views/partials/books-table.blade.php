@@ -27,7 +27,7 @@
                 </td>
                 <td>{{ $sach->nhaXuatBans->pluck('TenNXB')->join(', ') ?: 'N/A' }}</td>
                 <td>{{ $sach->NamXuatBan }}</td>
-                <td>{{ \Carbon\Carbon::parse($sach->created_at)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($sach->NgayNhap)->format('d/m/Y') }}</td>
                 <td>
                     <span class="status-badge {{ $sach->TinhTrang === 'Có sẵn' ? 'status-available' : ($sach->TinhTrang === 'Đang được mượn' ? 'status-borrowed' : 'status-maintenance') }}">
                         {{ $sach->TinhTrang }}

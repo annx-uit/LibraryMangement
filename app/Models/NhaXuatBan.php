@@ -16,6 +16,8 @@ class NhaXuatBan extends Model
         'TenNXB',
     ];
 
+    public $timestamps = false;
+
     public function sachs()
     {
         return $this->hasMany(Sach::class, 'MaNhaXuatBan', 'id');

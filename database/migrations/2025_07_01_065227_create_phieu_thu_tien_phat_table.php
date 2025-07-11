@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('MaPhieu', 20)->unique()->comment('Mã phiếu thu tiền phạt');
             $table->foreignId('docgia_id')->constrained('DOCGIA')->onDelete('cascade')->comment('ID độc giả');
             $table->decimal('SoTienNop', 15, 2)->comment('Số tiền nộp');
-            $table->timestamps();
         });
     }
 

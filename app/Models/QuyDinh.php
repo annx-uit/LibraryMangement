@@ -6,82 +6,84 @@ use Illuminate\Database\Eloquent\Model;
 
 class QuyDinh extends Model
 {
-    protected $table = 'QUYDINH';
+    protected $table = 'THAMSO';
     protected $primaryKey = 'id';
     public $incrementing = true;
     protected $keyType = 'int';
     
     protected $fillable = [
-        'TenQuyDinh',
+        'TenThamSo',
         'GiaTri',
     ];
 
-    // Constants for regulation codes
-    const MIN_AGE = 'MIN_AGE';
-    const MAX_AGE = 'MAX_AGE';
-    const CARD_VALIDITY_MONTHS = 'CARD_VALIDITY_MONTHS';
-    const MAX_BOOKS_PER_BORROW = 'MAX_BOOKS_PER_BORROW';
-    const BORROW_DURATION_DAYS = 'BORROW_DURATION_DAYS';
-    const BOOK_PUBLICATION_YEARS = 'BOOK_PUBLICATION_YEARS';
+    public $timestamps = false;
+
+    // Constants for parameter codes
+    const MIN_AGE = 'TuoiToiThieu';
+    const MAX_AGE = 'TuoiToiDa';
+    const CARD_VALIDITY_MONTHS = 'ThoiHanThe';
+    const MAX_BOOKS_PER_BORROW = 'SoSachToiDa';
+    const BORROW_DURATION_DAYS = 'NgayMuonToiDa';
+    const BOOK_PUBLICATION_YEARS = 'SoNamXuatBan';
 
     /**
-     * Get regulation value by code name
+     * Get parameter value by code name
      */
     public static function getValue($name, $default = null)
     {
-        $regulation = static::where('TenQuyDinh', $name)->first();
-        return $regulation ? $regulation->GiaTri : $default;
+        $parameter = static::where('TenThamSo', $name)->first();
+        return $parameter ? $parameter->GiaTri : $default;
     }
 
     /**
-     * Set regulation value
+     * Set parameter value
      */
     public static function setValue($name, $value)
     {
         return static::updateOrCreate(
-            ['TenQuyDinh' => $name],
+            ['TenThamSo' => $name],
             ['GiaTri' => $value]
         );
     }
 
     /**
-     * Get all regulations as key-value pairs
+     * Get all parameters as key-value pairs
      */
     public static function getAllValues()
     {
-        return static::pluck('GiaTri', 'TenQuyDinh')->toArray();
+        return static::pluck('GiaTri', 'TenThamSo')->toArray();
     }
 
     /**
-     * Helper methods for specific regulations
+     * Helper methods for specific parameters
      */
     public static function getMinAge()
     {
-        return (int) static::getValue('Tuổi tối thiểu độc giả', 18);
+        return (int) static::getValue('TuoiToiThieu', 18);
     }
 
     public static function getMaxAge()
     {
-        return (int) static::getValue('Tuổi tối đa độc giả', 55);
+        return (int) static::getValue('TuoiToiDa', 55);
     }
 
     public static function getCardValidityMonths()
     {
-        return (int) static::getValue('Thời hạn thẻ độc giả (tháng)', 6);
+        return (int) static::getValue('ThoiHanThe', 6);
     }
 
     public static function getMaxBooksPerBorrow()
     {
-        return (int) static::getValue('Số lượng sách tối đa mượn cùng lúc', 5);
+        return (int) static::getValue('SoSachToiDa', 5);
     }
 
     public static function getBorrowDurationDays()
     {
-        return (int) static::getValue('Số ngày mượn tối đa', 30);
+        return (int) static::getValue('NgayMuonToiDa', 14);
     }
 
     public static function getBookPublicationYears()
     {
-        return (int) static::getValue('Số năm xuất bản sách được chấp nhận', 8);
+        return (int) static::getValue('SoNamXuatBan', 8);
     }
 }

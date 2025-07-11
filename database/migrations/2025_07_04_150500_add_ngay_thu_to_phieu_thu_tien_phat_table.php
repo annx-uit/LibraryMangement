@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('SACH', function (Blueprint $table) {
-            $table->integer('SoLuong')->default(1)->after('TenSach')->comment('Số lượng sách trong kho');
+        Schema::table('PHIEUTHUTIENPHAT', function (Blueprint $table) {
+            $table->date('NgayThu')->nullable()->after('SoTienNop');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('SACH', function (Blueprint $table) {
-            $table->dropColumn('SoLuong');
+        Schema::table('PHIEUTHUTIENPHAT', function (Blueprint $table) {
+            $table->dropColumn('NgayThu');
         });
     }
-};
+}; 

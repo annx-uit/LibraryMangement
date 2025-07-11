@@ -120,7 +120,7 @@ class PhieuMuonController extends Controller
      */
     private function validateExtendRequest(Request $request): array
     {
-        $maxExtendDays = QuyDinh::getValue('Số ngày gia hạn tối đa', 7);
+        $maxExtendDays = 7; // Giá trị cố định: 7 ngày
         
         $validator = Validator::make($request->all(), [
             'sach_ids' => 'required|array|min:1',
@@ -879,7 +879,7 @@ class PhieuMuonController extends Controller
             $phieuMuon = PhieuMuon::with(['chiTietPhieuMuon', 'docGia'])->findOrFail($phieuMuonId);
 
             // 3. Check extend eligibility
-            $maxExtendDays = QuyDinh::getValue('Số ngày gia hạn tối đa', 7);
+            $maxExtendDays = 7; // Giá trị cố định: 7 ngày
             if ($extendDays > $maxExtendDays) {
                 throw new Exception("Chỉ được gia hạn tối đa {$maxExtendDays} ngày");
             }
@@ -967,7 +967,7 @@ class PhieuMuonController extends Controller
             $phieuMuon = PhieuMuon::with(['chiTietPhieuMuon.sach'])->findOrFail($phieuMuonId);
 
             // 3. Check extend eligibility
-            $maxExtendDays = QuyDinh::getValue('Số ngày gia hạn tối đa', 7);
+            $maxExtendDays = 7; // Giá trị cố định: 7 ngày
             if ($extendDays > $maxExtendDays) {
                 throw new Exception("Chỉ được gia hạn tối đa {$maxExtendDays} ngày");
             }
@@ -1057,7 +1057,7 @@ class PhieuMuonController extends Controller
                 }
             }
 
-            $phieuMuons = $query->latest('created_at')->get();
+            $phieuMuons = $query->latest('id')->get();
 
             // Format data for frontend
             $formattedData = $phieuMuons->map(function ($phieuMuon) {
@@ -1111,7 +1111,7 @@ class PhieuMuonController extends Controller
                     'is_overdue' => $isOverdue,
                     'is_completed' => $isCompleted,
                     'fine_created' => false, // TODO: Check if fine already created
-                    'created_at' => $phieuMuon->created_at->format('Y-m-d H:i:s'),
+                    'created_at' => $phieuMuon->id, // Using ID instead of created_at
                 ];
             });
 
@@ -1197,7 +1197,7 @@ class PhieuMuonController extends Controller
                     $query->whereNull('NgayTra')
                           ->where('NgayHenTra', '<', Carbon::now());
                 })
-                ->latest('created_at')
+                ->latest('id')
                 ->get();
 
             return response()->json([

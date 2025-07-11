@@ -33,6 +33,8 @@ class Sach extends Model
         'TriGia' => 'decimal:2',
     ];
 
+    public $timestamps = false;
+
     // Constants for TinhTrang
     const TINH_TRANG_DANG_MUON = 0;    // Đang được mượn
     const TINH_TRANG_CO_SAN = 1;       // Có sẵn (có thể mượn)

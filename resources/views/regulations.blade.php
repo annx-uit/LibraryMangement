@@ -358,21 +358,21 @@
             @forelse ($quyDinhs as $quyDinh)
                 <div class="regulation-card">
                     <div class="regulation-content">
-                        <div class="regulation-icon {{ getRegulationIconClass($quyDinh->TenQuyDinh) }}">
-                            {{ getRegulationIcon($quyDinh->TenQuyDinh) }}
+                        <div class="regulation-icon {{ getRegulationIconClass($quyDinh->TenThamSo) }}">
+                            {{ getRegulationIcon($quyDinh->TenThamSo) }}
                         </div>
                         <div class="regulation-info">
                             <div class="regulation-header">
-                                <h3 class="regulation-title">{{ $quyDinh->TenQuyDinh }}</h3>
+                                <h3 class="regulation-title">{{ getFriendlyLabel($quyDinh->TenThamSo) }}</h3>
                                 <button class="edit-regulation-btn" onclick="openEditModal({{ $quyDinh->id }})">
                                     ✏️ Sửa
                                 </button>
                             </div>
                             <div class="regulation-value">
-                                {{ $quyDinh->GiaTri }} {{ getRegulationUnit($quyDinh->TenQuyDinh) }}
+                                {{ $quyDinh->GiaTri }} {{ getRegulationUnit($quyDinh->TenThamSo) }}
                             </div>
                             <div class="regulation-description">
-                                {{ getRegulationDescription($quyDinh->TenQuyDinh) }}
+                                {{ getRegulationDescription($quyDinh->TenThamSo) }}
                             </div>
                         </div>
                     </div>
@@ -401,10 +401,10 @@
                 @method('PUT')
                 
                 <div class="form-group">
-                    <label for="editTenQuyDinh">Tên quy định</label>
-                    <input type="text" id="editTenQuyDinh" name="TenQuyDinh" readonly style="background-color: #f8f9fa; cursor: not-allowed;">
+                    <label for="editTenThamSo">Tên tham số</label>
+                    <input type="text" id="editTenThamSo" name="TenThamSo" readonly style="background-color: #f8f9fa; cursor: not-allowed;">
                     <small style="color: #6c757d; font-size: 12px; margin-top: 4px; display: block;">
-                        Tên quy định không thể thay đổi
+                        Tên tham số không thể thay đổi
                     </small>
                 </div>
                 
@@ -439,15 +439,15 @@
         @foreach($quyDinhs as $quyDinh)
         {
             id: {{ $quyDinh->id }},
-            name: '{{ $quyDinh->TenQuyDinh }}',
+            name: '{{ $quyDinh->TenThamSo }}',
             value: {{ $quyDinh->GiaTri }},
-            validation: getValidationInfo('{{ $quyDinh->TenQuyDinh }}')
+            validation: getValidationInfo('{{ $quyDinh->TenThamSo }}')
         },
         @endforeach
     ];
 
     // Helper function to get validation info
-    function getValidationInfo(tenQuyDinh) {
+    function getValidationInfo(tenThamSo) {
         const info = {
             min: 1,
             max: 100,
@@ -455,23 +455,23 @@
             description: ''
         };
 
-        if (tenQuyDinh.includes('tuổi')) {
+        if (tenThamSo.includes('Tuoi')) {
             info.max = 100;
             info.unit = 'tuổi';
             info.description = 'Độ tuổi hợp lệ (1-100)';
-        } else if (tenQuyDinh.includes('tháng')) {
+        } else if (tenThamSo.includes('ThoiHan')) {
             info.max = 120;
             info.unit = 'tháng';
             info.description = 'Số tháng hợp lệ (1-120)';
-        } else if (tenQuyDinh.includes('ngày')) {
+        } else if (tenThamSo.includes('Ngay')) {
             info.max = 365;
             info.unit = 'ngày';
             info.description = 'Số ngày hợp lệ (1-365)';
-        } else if (tenQuyDinh.includes('sách')) {
+        } else if (tenThamSo.includes('Sach')) {
             info.max = 50;
             info.unit = 'cuốn';
             info.description = 'Số sách hợp lệ (1-50)';
-        } else if (tenQuyDinh.includes('năm')) {
+        } else if (tenThamSo.includes('Nam')) {
             info.max = 50;
             info.unit = 'năm';
             info.description = 'Số năm hợp lệ (1-50)';
@@ -491,7 +491,7 @@
         const modal = document.getElementById('editModal');
         
         // Set form values
-        document.getElementById('editTenQuyDinh').value = regulation.name;
+        document.getElementById('editTenThamSo').value = regulation.name;
         
         const giaTri = document.getElementById('editGiaTri');
         giaTri.value = regulation.value;
@@ -580,40 +580,51 @@
 @endpush
 
 @php
-function getRegulationIcon($tenQuyDinh) {
-    if (str_contains($tenQuyDinh, 'tuổi')) return '👥';
-    if (str_contains($tenQuyDinh, 'tháng')) return '📅';
-    if (str_contains($tenQuyDinh, 'sách')) return '📚';
-    if (str_contains($tenQuyDinh, 'ngày')) return '⏰';
-    if (str_contains($tenQuyDinh, 'năm')) return '📖';
+function getRegulationIcon($tenThamSo) {
+    if (str_contains($tenThamSo, 'Tuoi')) return '👥';
+    if (str_contains($tenThamSo, 'ThoiHan')) return '📅';
+    if (str_contains($tenThamSo, 'Sach')) return '📚';
+    if (str_contains($tenThamSo, 'Ngay')) return '⏰';
+    if (str_contains($tenThamSo, 'Nam')) return '📖';
     return '⚙️';
 }
 
-function getRegulationIconClass($tenQuyDinh) {
-    if (str_contains($tenQuyDinh, 'tuổi')) return 'icon-age';
-    if (str_contains($tenQuyDinh, 'tháng')) return 'icon-card';
-    if (str_contains($tenQuyDinh, 'sách')) return 'icon-books';
-    if (str_contains($tenQuyDinh, 'ngày')) return 'icon-days';
-    if (str_contains($tenQuyDinh, 'năm')) return 'icon-years';
+function getRegulationIconClass($tenThamSo) {
+    if (str_contains($tenThamSo, 'Tuoi')) return 'icon-age';
+    if (str_contains($tenThamSo, 'ThoiHan')) return 'icon-card';
+    if (str_contains($tenThamSo, 'Sach')) return 'icon-books';
+    if (str_contains($tenThamSo, 'Ngay')) return 'icon-days';
+    if (str_contains($tenThamSo, 'Nam')) return 'icon-years';
     return 'icon-age';
 }
 
-function getRegulationUnit($tenQuyDinh) {
-    if (str_contains($tenQuyDinh, 'tuổi')) return 'tuổi';
-    if (str_contains($tenQuyDinh, 'tháng')) return 'tháng';
-    if (str_contains($tenQuyDinh, 'sách')) return 'cuốn';
-    if (str_contains($tenQuyDinh, 'ngày')) return 'ngày';
-    if (str_contains($tenQuyDinh, 'năm')) return 'năm';
+function getRegulationUnit($tenThamSo) {
+    if (str_contains($tenThamSo, 'Tuoi')) return 'tuổi';
+    if (str_contains($tenThamSo, 'ThoiHan')) return 'tháng';
+    if (str_contains($tenThamSo, 'Sach')) return 'cuốn';
+    if (str_contains($tenThamSo, 'Ngay')) return 'ngày';
+    if (str_contains($tenThamSo, 'Nam')) return 'năm';
     return '';
 }
 
-function getRegulationDescription($tenQuyDinh) {
-    if (str_contains($tenQuyDinh, 'Tuổi tối thiểu')) return 'Độ tuổi tối thiểu để được cấp thẻ độc giả';
-    if (str_contains($tenQuyDinh, 'Tuổi tối đa')) return 'Độ tuổi tối đa để được cấp thẻ độc giả';
-    if (str_contains($tenQuyDinh, 'Thời hạn thẻ')) return 'Thời gian hiệu lực của thẻ độc giả';
-    if (str_contains($tenQuyDinh, 'Số lượng sách')) return 'Số sách tối đa mà một độc giả có thể mượn cùng lúc';
-    if (str_contains($tenQuyDinh, 'Số ngày mượn')) return 'Thời gian mượn sách tối đa cho mỗi lần mượn';
-    if (str_contains($tenQuyDinh, 'Số năm xuất bản')) return 'Chỉ nhận sách xuất bản trong khoảng thời gian này';
-    return 'Quy định hệ thống';
+function getRegulationDescription($tenThamSo) {
+    if (str_contains($tenThamSo, 'TuoiToiThieu')) return 'Độ tuổi tối thiểu để được cấp thẻ độc giả';
+    if (str_contains($tenThamSo, 'TuoiToiDa')) return 'Độ tuổi tối đa để được cấp thẻ độc giả';
+    if (str_contains($tenThamSo, 'ThoiHanThe')) return 'Thời gian hiệu lực của thẻ độc giả';
+    if (str_contains($tenThamSo, 'SoSachToiDa')) return 'Số sách tối đa mà một độc giả có thể mượn cùng lúc';
+    if (str_contains($tenThamSo, 'NgayMuonToiDa')) return 'Thời gian mượn sách tối đa cho mỗi lần mượn';
+    if (str_contains($tenThamSo, 'SoNamXuatBan')) return 'Chỉ nhận sách xuất bản trong khoảng thời gian này';
+    return 'Tham số hệ thống';
+}
+
+function getFriendlyLabel($tenThamSo) {
+    return [
+        'TuoiToiThieu' => 'Tuổi tối thiểu độc giả',
+        'TuoiToiDa' => 'Tuổi tối đa độc giả',
+        'ThoiHanThe' => 'Thời hạn thẻ độc giả (tháng)',
+        'SoSachToiDa' => 'Số lượng sách tối đa mượn cùng lúc',
+        'NgayMuonToiDa' => 'Số ngày mượn tối đa',
+        'SoNamXuatBan' => 'Số năm xuất bản sách được chấp nhận',
+    ][$tenThamSo] ?? $tenThamSo;
 }
 @endphp

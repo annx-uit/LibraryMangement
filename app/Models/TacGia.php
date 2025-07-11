@@ -16,6 +16,8 @@ class TacGia extends Model
         'TenTacGia',
     ];
 
+    public $timestamps = false;
+
     public function sachs()
     {
         return $this->hasMany(Sach::class, 'MaTacGia', 'id');

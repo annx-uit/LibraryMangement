@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('LOAIDOCGIA', function (Blueprint $table) {
             $table->id();
             $table->string('TenLoaiDocGia');
-            $table->timestamps();
         });
     }
 

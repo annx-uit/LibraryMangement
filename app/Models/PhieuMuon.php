@@ -26,6 +26,8 @@ class PhieuMuon extends Model
 
     protected $appends = ['TrangThai'];
 
+    public $timestamps = false;
+
     // Boot method to handle model events
     protected static function boot()
     {

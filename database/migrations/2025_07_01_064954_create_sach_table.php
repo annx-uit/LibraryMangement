@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('NamXuatBan');
             $table->date('NgayNhap');
             $table->tinyInteger('TinhTrang')->default(1); // 1 = có sẵn, 0 = đang mượn
-            $table->timestamps();
             
             $table->foreign('MaTacGia')->references('id')->on('TACGIA')->onDelete('set null');
             $table->foreign('MaNhaXuatBan')->references('id')->on('NHAXUATBAN')->onDelete('set null');

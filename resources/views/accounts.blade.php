@@ -608,7 +608,7 @@
                             {{ $taiKhoan->vaiTro->VaiTro }}
                         </span>
                     </td>
-                    <td>{{ $taiKhoan->created_at->format('d/m/Y H:i') }}</td>
+                    <td>{{ $taiKhoan->id }}</td>
                     <td>
                         <div class="actions">
                             <button class="btn edit-btn" onclick="openEditModal({{ $taiKhoan->id }}, '{{ $taiKhoan->HoVaTen }}', '{{ $taiKhoan->Email }}')">
@@ -909,7 +909,7 @@ function updateAccountsTable(accounts) {
                         ${account.vai_tro.VaiTro}
                     </span>
                 </td>
-                <td>${new Date(account.created_at).toLocaleDateString('vi-VN')} ${new Date(account.created_at).toLocaleTimeString('vi-VN')}</td>
+                <td>${account.id}</td>
                 <td>
                     <div class="actions">
                         <button class="btn edit-btn" onclick="openEditModal(${account.id}, '${account.HoVaTen}', '${account.Email}')">

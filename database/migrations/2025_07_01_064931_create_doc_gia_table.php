@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('NgayLapThe');
             $table->date('NgayHetHan');
             $table->decimal('TongNo', 15, 2)->default(0)->comment('Tổng nợ của độc giả');
-            $table->timestamps();
         });
     }
 

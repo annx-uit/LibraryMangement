@@ -498,7 +498,7 @@
       {
         id: {{ $nxb->id }},
         name: '{{ addslashes($nxb->TenNXB) }}',
-        dateAdded: '{{ $nxb->created_at ? $nxb->created_at->format("Y-m-d") : date("Y-m-d") }}',
+                        dateAdded: '{{ date("Y-m-d") }}',
       },
     @endforeach
   ];
@@ -642,7 +642,7 @@
           publishers.push({
             id: response.data.id,
             name: response.data.TenNXB,
-            dateAdded: response.data.created_at ? response.data.created_at.split('T')[0] : new Date().toISOString().split('T')[0]
+                            dateAdded: new Date().toISOString().split('T')[0]
           });
           showToast('Thêm nhà xuất bản thành công!');
         }

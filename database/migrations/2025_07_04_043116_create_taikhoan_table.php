@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('Email', 150)->unique();
             $table->string('MatKhau');
             $table->foreignId('vaitro_id')->constrained('VAITRO')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

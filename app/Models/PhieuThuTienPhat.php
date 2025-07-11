@@ -15,12 +15,16 @@ class PhieuThuTienPhat extends Model
     protected $fillable = [
         'MaPhieu',
         'docgia_id',
-        'SoTienNop'
+        'SoTienNop',
+        'NgayThu'
     ];
 
     protected $casts = [
-        'SoTienNop' => 'decimal:2'
+        'SoTienNop' => 'decimal:2',
+        'NgayThu' => 'date'
     ];
+
+    public $timestamps = false;
 
     /**
      * Relationship with DocGia

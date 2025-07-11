@@ -484,7 +484,7 @@
       {
         id: {{ $theLoai->id }},
         name: '{{ addslashes($theLoai->TenTheLoai) }}',
-        dateAdded: '{{ $theLoai->created_at ? $theLoai->created_at->format("Y-m-d") : date("Y-m-d") }}',
+                        dateAdded: '{{ date("Y-m-d") }}',
       },
     @endforeach
   ];
@@ -618,7 +618,7 @@
           genres.push({
             id: response.data.id,
             name: response.data.TenTheLoai,
-            dateAdded: response.data.created_at ? response.data.created_at.split('T')[0] : new Date().toISOString().split('T')[0]
+                            dateAdded: new Date().toISOString().split('T')[0]
           });
           showToast('Thêm thể loại thành công!');
         }

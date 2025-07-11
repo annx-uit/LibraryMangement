@@ -26,6 +26,8 @@ class ChiTietPhieuMuon extends Model
         'TienDenBu' => 'decimal:2',
     ];
 
+    public $timestamps = false;
+
     public function phieuMuon()
     {
         return $this->belongsTo(PhieuMuon::class, 'phieumuon_id');

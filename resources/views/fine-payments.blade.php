@@ -537,7 +537,7 @@
         docGiaName: '{{ addslashes($phieuThu->docGia->HoTen) }}',
         docGiaCode: '{{ addslashes($phieuThu->docGia->MaDocGia) }}',
         SoTienNop: {{ $phieuThu->SoTienNop }},
-        created_at: '{{ $phieuThu->created_at->format("Y-m-d H:i:s") }}',
+                        created_at: '{{ $phieuThu->NgayThu ? $phieuThu->NgayThu->format("Y-m-d") : date("Y-m-d") }}',
       },
     @endforeach
   ];
@@ -620,7 +620,7 @@
       
       filteredPayments.forEach((p) => {
         const tr = document.createElement('tr');
-        const createdDate = new Date(p.created_at).toLocaleDateString('vi-VN');
+                        const createdDate = new Date(p.created_at).toLocaleDateString('vi-VN');
         
         tr.innerHTML = `
           <td><strong>${p.MaPhieu}</strong></td>
@@ -732,7 +732,7 @@
           docGiaName: response.data.doc_gia?.HoTen || '',
           docGiaCode: response.data.doc_gia?.MaDocGia || '',
           SoTienNop: response.data.SoTienNop,
-          created_at: response.data.created_at
+                          created_at: response.data.NgayThu ? response.data.NgayThu : new Date().toISOString().split('T')[0]
         });
         // Cập nhật nợ của độc giả
         const docGiaIndex = docGias.findIndex(d => d.id == response.data.docgia_id);

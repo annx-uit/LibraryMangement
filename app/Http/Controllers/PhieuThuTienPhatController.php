@@ -16,7 +16,7 @@ class PhieuThuTienPhatController extends Controller
     public function index()
     {
         try {
-            $phieuThus = PhieuThuTienPhat::with('docGia')->orderBy('created_at', 'desc')->get();
+            $phieuThus = PhieuThuTienPhat::with('docGia')->orderBy('id', 'desc')->get();
             $docGias = DocGia::orderBy('HoTen')->get();
             
             return view('fine-payments', compact('phieuThus', 'docGias'));
@@ -61,6 +61,7 @@ class PhieuThuTienPhatController extends Controller
                 'MaPhieu' => PhieuThuTienPhat::generateMaPhieu(),
                 'docgia_id' => $request->docgia_id,
                 'SoTienNop' => $request->SoTienNop,
+                'NgayThu' => now()->toDateString(),
             ]);
 
             // Cập nhật tổng nợ của độc giả

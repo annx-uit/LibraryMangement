@@ -26,8 +26,6 @@ class ReportsTestSeeder extends Seeder
             DB::table('THELOAI')->insertOrIgnore([
                 'TenTheLoai' => $genre['TenTheLoai'],
                 'MoTa' => $genre['MoTa'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
 
@@ -45,8 +43,6 @@ class ReportsTestSeeder extends Seeder
                 'TenTacGia' => $author['TenTacGia'],
                 'DiaChi' => $author['DiaChi'],
                 'Website' => $author['Website'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
 
@@ -63,8 +59,6 @@ class ReportsTestSeeder extends Seeder
                 'TenNXB' => $publisher['TenNXB'],
                 'DiaChi' => $publisher['DiaChi'],
                 'Email' => $publisher['Email'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
 
@@ -85,8 +79,6 @@ class ReportsTestSeeder extends Seeder
                 'NamXuatBan' => $book['NamXuatBan'],
                 'SoLuong' => $book['SoLuong'],
                 'TriGia' => $book['TriGia'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
             // Thêm thể loại cho sách vào bảng SACH_THELOAI
@@ -102,8 +94,6 @@ class ReportsTestSeeder extends Seeder
                 DB::table('SACH_THELOAI')->insertOrIgnore([
                     'sach_id' => $bookId,
                     'theloai_id' => $genreId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
                 ]);
             }
         }
@@ -112,15 +102,11 @@ class ReportsTestSeeder extends Seeder
         DB::table('LOAIDOCGIA')->insertOrIgnore([
             'TenLoaiDG' => 'Sinh viên',
             'TuoiToiDa' => 30,
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         DB::table('LOAIDOCGIA')->insertOrIgnore([
             'TenLoaiDG' => 'Học sinh',
             'TuoiToiDa' => 18,
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         // Thêm dữ liệu test cho bảng DOCGIA
@@ -139,8 +125,6 @@ class ReportsTestSeeder extends Seeder
                 'NgayLapThe' => $reader['NgayLapThe'],
                 'LoaiDGId' => $reader['LoaiDGId'],
                 'TongNo' => $reader['TongNo'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
 
@@ -190,8 +174,6 @@ class ReportsTestSeeder extends Seeder
                 'NgayTraDuKien' => $record['NgayTraDuKien'],
                 'NgayTraThucTe' => $record['NgayTraThucTe'],
                 'TinhTrang' => $record['TinhTrang'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
             // Thêm chi tiết phiếu mượn

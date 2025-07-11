@@ -13,45 +13,33 @@ class QuyDinhSeeder extends Seeder
      */
     public function run(): void
     {
-        $quyDinhData = [
+        $thamSoData = [
             [
-                'TenQuyDinh' => 'Tuổi tối thiểu độc giả',
+                'TenThamSo' => 'TuoiToiThieu',
                 'GiaTri' => '18',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'TenQuyDinh' => 'Tuổi tối đa độc giả',
+                'TenThamSo' => 'TuoiToiDa',
                 'GiaTri' => '55',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'TenQuyDinh' => 'Thời hạn thẻ độc giả (tháng)',
+                'TenThamSo' => 'ThoiHanThe',
                 'GiaTri' => '6',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'TenQuyDinh' => 'Số lượng sách tối đa mượn cùng lúc',
+                'TenThamSo' => 'SoSachToiDa',
                 'GiaTri' => '5',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
-                'TenQuyDinh' => 'Số ngày mượn tối đa',
-                'GiaTri' => '4',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'TenThamSo' => 'NgayMuonToiDa',
+                'GiaTri' => '14',
             ],
             [
-                'TenQuyDinh' => 'Số năm xuất bản sách được chấp nhận',
+                'TenThamSo' => 'SoNamXuatBan',
                 'GiaTri' => '8',
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
         ];
 
-        DB::table('QUYDINH')->insert($quyDinhData);
+        DB::table('THAMSO')->insert($thamSoData);
     }
 }

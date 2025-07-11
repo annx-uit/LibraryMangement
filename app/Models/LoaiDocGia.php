@@ -15,6 +15,8 @@ class LoaiDocGia extends Model
         'TenLoaiDocGia'
     ];
 
+    public $timestamps = false;
+
     // Relationship với DocGia
     public function docGias()
     {

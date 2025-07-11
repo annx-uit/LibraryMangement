@@ -430,7 +430,7 @@
                             <td style="text-align: center; font-weight: 600; color: #2d3748;">
                                 {{ number_format($sach->TriGia ?? 0, 0, ',', '.') }}đ
                             </td>
-                            <td>{{ \Carbon\Carbon::parse($sach->created_at)->format('d/m/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($sach->NgayNhap)->format('d/m/Y') }}</td>
                             <td>
                                 @php
                                     $tinhTrangText = '';
