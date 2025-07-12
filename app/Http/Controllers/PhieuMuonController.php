@@ -575,6 +575,15 @@ class PhieuMuonController extends Controller
                 'data' => $phieuMuon
             ]);
 
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error('=== BORROW RECORD UPDATE FAILED - NOT FOUND ===');
+            Log::error('Error: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Phiếu mượn không tồn tại'
+            ], 404);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('=== BORROW RECORD UPDATE FAILED ===');
@@ -701,6 +710,13 @@ class PhieuMuonController extends Controller
                 ]
             ]);
 
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            Log::error('Error calculating return fines - NOT FOUND: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Phiếu mượn không tồn tại'
+            ], 404);
         } catch (Exception $e) {
             Log::error('Error calculating return fines: ' . $e->getMessage());
             
@@ -851,6 +867,14 @@ class PhieuMuonController extends Controller
                 ]
             ]);
 
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error('Error returning books - NOT FOUND: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Phiếu mượn không tồn tại'
+            ], 404);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Error returning books: ' . $e->getMessage());
@@ -930,6 +954,14 @@ class PhieuMuonController extends Controller
                 ]
             ]);
 
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error('Error extending borrow - NOT FOUND: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Phiếu mượn không tồn tại'
+            ], 404);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Error extending borrow: ' . $e->getMessage());
@@ -997,6 +1029,14 @@ class PhieuMuonController extends Controller
                 ]
             ]);
 
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error('Error extending borrow record - NOT FOUND: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Phiếu mượn không tồn tại'
+            ], 404);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Error extending borrow record: ' . $e->getMessage());
@@ -1254,6 +1294,14 @@ class PhieuMuonController extends Controller
                 'message' => $message
             ]);
 
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            Log::error('Error deleting borrow record - NOT FOUND: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Phiếu mượn không tồn tại'
+            ], 404);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Error deleting borrow record: ' . $e->getMessage());

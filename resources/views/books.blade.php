@@ -616,16 +616,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="editTinhTrang">Tình trạng sách <small style="color: #666; font-style: italic;">(Tự động cập nhật khi mượn/trả sách)</small></label>
-                    <select id="editTinhTrang" name="TinhTrang" disabled style="background-color: #f8f9fa; color: #6c757d; cursor: not-allowed;">
+                    <label for="editTinhTrang">Tình trạng sách</label>
+                    <select id="editTinhTrang" name="TinhTrang" required>
                         <option value="">-- Chọn tình trạng --</option>
                         <option value="1">Có sẵn</option>
                         <option value="0">Đang được mượn</option>
                         <option value="3">Hỏng</option>
                         <option value="4">Mất</option>
                     </select>
-                    {{-- Trường ẩn để gửi giá trị hiện tại --}}
-                    <input type="hidden" id="editTinhTrangHidden" name="TinhTrang">
                 </div>
                 
                 <div class="form-group">
@@ -737,7 +735,6 @@
                     
                     // Hiển thị tình trạng hiện tại nhưng không cho phép chỉnh sửa
                     document.getElementById('editTinhTrang').value = data.TinhTrang;
-                    document.getElementById('editTinhTrangHidden').value = data.TinhTrang;
                     
                     // Debug: Log all data to console
                     console.log('Full book data received:', data);

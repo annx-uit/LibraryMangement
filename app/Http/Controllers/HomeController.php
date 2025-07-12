@@ -63,6 +63,12 @@ class HomeController extends Controller
         // Sắp xếp
         $sortBy = $request->get('sort', 'TenSach');
         $sortOrder = $request->get('order', 'asc');
+        
+        // Validate sort order
+        if (!in_array($sortOrder, ['asc', 'desc'])) {
+            $sortOrder = 'asc';
+        }
+        
         $query->orderBy($sortBy, $sortOrder);
         
         // Phân trang với appends để giữ các tham số tìm kiếm

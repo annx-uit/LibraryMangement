@@ -283,6 +283,7 @@ class SachController extends Controller
                 'TriGia' => $request->TriGia,
                 'MaTacGia' => $request->tacGias,
                 'MaNhaXuatBan' => $request->nhaXuatBans,
+                'TinhTrang' => $request->TinhTrang, // Cho phép cập nhật tình trạng sách
             ]);
             
             // Cập nhật nhiều thể loại (many-to-many)

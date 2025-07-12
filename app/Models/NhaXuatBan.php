@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Sach;
 
 class NhaXuatBan extends Model
 {
+    use HasFactory;
     protected $table = 'NHAXUATBAN';
     protected $primaryKey = 'id';
     public $incrementing = true;

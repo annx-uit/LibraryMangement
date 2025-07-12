@@ -117,17 +117,17 @@ class ReportController extends Controller
 
             $reportDate = Carbon::createFromFormat('Y-m-d', $date);
 
-            // Get default borrow period (30 days if not found in QUYDINH)
+            // Get default borrow period (30 days if not found in THAMSO)
             $maxBorrowDays = 30;
             try {
-                $quyDinh = DB::table('QUYDINH')
-                    ->where('TenQuyDinh', 'Số ngày mượn tối đa')
+                $quyDinh = DB::table('THAMSO')
+                    ->where('TenThamSo', 'NgayMuonToiDa')
                     ->first();
                 if ($quyDinh) {
                     $maxBorrowDays = (int) $quyDinh->GiaTri;
                 }
             } catch (\Exception $e) {
-                // Use default if QUYDINH table doesn't exist or has issues
+                // Use default if THAMSO table doesn't exist or has issues
             }
 
             // Get all borrow records for processing
@@ -300,8 +300,8 @@ class ReportController extends Controller
 
             // Get borrow period
             $maxBorrowDays = 30;
-            $quyDinh = DB::table('QUYDINH')
-                ->where('TenQuyDinh', 'Số ngày mượn tối đa')
+            $quyDinh = DB::table('THAMSO')
+                ->where('TenThamSo', 'NgayMuonToiDa')
                 ->first();
             if ($quyDinh) {
                 $maxBorrowDays = (int) $quyDinh->GiaTri;
@@ -506,8 +506,8 @@ class ReportController extends Controller
 
             // Get borrow duration
             $maxBorrowDays = 30;
-            $quyDinh = DB::table('QUYDINH')
-                ->where('TenQuyDinh', 'Số ngày mượn tối đa')
+            $quyDinh = DB::table('THAMSO')
+                ->where('TenThamSo', 'NgayMuonToiDa')
                 ->first();
             if ($quyDinh) {
                 $maxBorrowDays = (int) $quyDinh->GiaTri;
@@ -597,8 +597,8 @@ class ReportController extends Controller
 
             // Get borrow duration
             $maxBorrowDays = 30;
-            $quyDinh = DB::table('QUYDINH')
-                ->where('TenQuyDinh', 'Số ngày mượn tối đa')
+            $quyDinh = DB::table('THAMSO')
+                ->where('TenThamSo', 'NgayMuonToiDa')
                 ->first();
             if ($quyDinh) {
                 $maxBorrowDays = (int) $quyDinh->GiaTri;

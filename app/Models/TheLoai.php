@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Sach;
 
 class TheLoai extends Model
 {
+    use HasFactory;
     protected $table = 'THELOAI';
     protected $primaryKey = 'id';
     public $incrementing = true;

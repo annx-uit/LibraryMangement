@@ -52,8 +52,11 @@ class DocGiaController extends Controller
             'NgaySinh' => [
                 'required',
                 'date',
-                'before:today',
                 function ($attribute, $value, $fail) {
+                    if (!strtotime($value) || Carbon::parse($value)->isFuture()) {
+                        $fail('Ngày sinh không hợp lệ');
+                        return;
+                    }
                     $birthDate = Carbon::parse($value);
                     $age = $birthDate->diffInYears(Carbon::now());
                     
@@ -70,10 +73,28 @@ class DocGiaController extends Controller
                 }
             ],
             'DiaChi' => 'required|string|max:500',
-            'Email' => 'required|email|unique:DOCGIA,Email',
+            'Email' => [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) {
+                    $exists = DocGia::whereRaw('LOWER(Email) = ?', [mb_strtolower($value)])->exists();
+                    if ($exists) {
+                        $fail('Email đã tồn tại');
+                    }
+                }
+            ],
             'NgayLapThe' => 'required|date',
             'NgayHetHan' => 'required|date|after:NgayLapThe',
-            'TongNo' => 'nullable|integer|min:0|max:999999999',
+            'TongNo' => [
+                'nullable',
+                'integer',
+                function ($attribute, $value, $fail) {
+                    if (!is_null($value) && $value < 0) {
+                        $fail('Tổng nợ không hợp lệ');
+                    }
+                },
+                'max:999999999'
+            ],
         ], [
             'HoTen.required' => 'Họ tên là bắt buộc',
             'HoTen.max' => 'Họ tên không được quá 255 ký tự',
@@ -81,19 +102,16 @@ class DocGiaController extends Controller
             'loaidocgia_id.exists' => 'Loại độc giả không hợp lệ',
             'NgaySinh.required' => 'Ngày sinh là bắt buộc',
             'NgaySinh.date' => 'Ngày sinh không hợp lệ',
-            'NgaySinh.before' => 'Ngày sinh phải trước ngày hôm nay',
             'DiaChi.required' => 'Địa chỉ là bắt buộc',
             'DiaChi.max' => 'Địa chỉ không được quá 500 ký tự',
             'Email.required' => 'Email là bắt buộc',
             'Email.email' => 'Email không hợp lệ',
-            'Email.unique' => 'Email đã tồn tại',
             'NgayLapThe.required' => 'Ngày lập thẻ là bắt buộc',
             'NgayLapThe.date' => 'Ngày lập thẻ không hợp lệ',
             'NgayHetHan.required' => 'Ngày hết hạn là bắt buộc',
             'NgayHetHan.date' => 'Ngày hết hạn không hợp lệ',
             'NgayHetHan.after' => 'Ngày hết hạn phải sau ngày lập thẻ',
             'TongNo.integer' => 'Tổng nợ phải là số nguyên',
-            'TongNo.min' => 'Tổng nợ không được âm',
             'TongNo.max' => 'Tổng nợ quá lớn',
         ]);
 
@@ -159,8 +177,11 @@ class DocGiaController extends Controller
             'NgaySinh' => [
                 'required',
                 'date',
-                'before:today',
                 function ($attribute, $value, $fail) {
+                    if (!strtotime($value) || Carbon::parse($value)->isFuture()) {
+                        $fail('Ngày sinh không hợp lệ');
+                        return;
+                    }
                     $birthDate = Carbon::parse($value);
                     $age = $birthDate->diffInYears(Carbon::now());
                     
@@ -177,10 +198,30 @@ class DocGiaController extends Controller
                 }
             ],
             'DiaChi' => 'required|string|max:500',
-            'Email' => 'required|email|unique:DOCGIA,Email,' . $id,
+            'Email' => [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) use ($id) {
+                    $exists = DocGia::whereRaw('LOWER(Email) = ?', [mb_strtolower($value)])
+                        ->where('id', '!=', $id)
+                        ->exists();
+                    if ($exists) {
+                        $fail('Email đã tồn tại');
+                    }
+                }
+            ],
             'NgayLapThe' => 'required|date',
             'NgayHetHan' => 'required|date|after:NgayLapThe',
-            'TongNo' => 'nullable|integer|min:0|max:999999999',
+            'TongNo' => [
+                'nullable',
+                'integer',
+                function ($attribute, $value, $fail) {
+                    if (!is_null($value) && $value < 0) {
+                        $fail('Tổng nợ không hợp lệ');
+                    }
+                },
+                'max:999999999'
+            ],
         ], [
             'HoTen.required' => 'Họ tên là bắt buộc',
             'HoTen.max' => 'Họ tên không được quá 255 ký tự',
@@ -188,19 +229,16 @@ class DocGiaController extends Controller
             'loaidocgia_id.exists' => 'Loại độc giả không hợp lệ',
             'NgaySinh.required' => 'Ngày sinh là bắt buộc',
             'NgaySinh.date' => 'Ngày sinh không hợp lệ',
-            'NgaySinh.before' => 'Ngày sinh phải trước ngày hôm nay',
             'DiaChi.required' => 'Địa chỉ là bắt buộc',
             'DiaChi.max' => 'Địa chỉ không được quá 500 ký tự',
             'Email.required' => 'Email là bắt buộc',
             'Email.email' => 'Email không hợp lệ',
-            'Email.unique' => 'Email đã tồn tại',
             'NgayLapThe.required' => 'Ngày lập thẻ là bắt buộc',
             'NgayLapThe.date' => 'Ngày lập thẻ không hợp lệ',
             'NgayHetHan.required' => 'Ngày hết hạn là bắt buộc',
             'NgayHetHan.date' => 'Ngày hết hạn không hợp lệ',
             'NgayHetHan.after' => 'Ngày hết hạn phải sau ngày lập thẻ',
             'TongNo.integer' => 'Tổng nợ phải là số nguyên',
-            'TongNo.min' => 'Tổng nợ không được âm',
             'TongNo.max' => 'Tổng nợ quá lớn',
         ]);
 

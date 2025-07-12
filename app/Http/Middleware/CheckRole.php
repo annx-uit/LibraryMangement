@@ -23,7 +23,16 @@ class CheckRole
             if ($request->routeIs('home')) {
                 return $next($request);
             }
-            // Chuyển hướng về trang đăng nhập cho các trang khác
+            
+            // Trả về JSON response cho API requests
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Chưa đăng nhập'
+                ], 401);
+            }
+            
+            // Chuyển hướng về trang đăng nhập cho các trang web khác
             return redirect()->route('login');
         }
 
@@ -37,7 +46,15 @@ class CheckRole
             }
         }
 
-        // Nếu không có quyền, chuyển hướng về trang chủ
+        // Nếu không có quyền
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bạn không có quyền truy cập'
+            ], 403);
+        }
+        
+        // Chuyển hướng về trang chủ cho web requests
         return redirect()->route('home')->with('error', 'Bạn không có quyền truy cập trang này.');
     }
 }
