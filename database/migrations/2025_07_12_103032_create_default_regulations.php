@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Seeders;
-
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class QuyDinhSeeder extends Seeder
+return new class extends Migration
 {
     /**
-     * Run the database seeds.
+     * Run the migrations.
      */
-    public function run(): void
+    public function up(): void
     {
+        // Thêm dữ liệu quy định mặc định
         $thamSoData = [
             [
                 'TenThamSo' => 'TuoiToiThieu',
@@ -40,6 +40,20 @@ class QuyDinhSeeder extends Seeder
             ],
         ];
 
-        DB::table('THAMSO')->insert($thamSoData);
+        // Chỉ thêm nếu chưa tồn tại
+        foreach ($thamSoData as $thamSo) {
+            if (!DB::table('THAMSO')->where('TenThamSo', $thamSo['TenThamSo'])->exists()) {
+                DB::table('THAMSO')->insert($thamSo);
+            }
+        }
     }
-}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        // Xóa tất cả dữ liệu quy định khi rollback
+        DB::table('THAMSO')->truncate();
+    }
+};
