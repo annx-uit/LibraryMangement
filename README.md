@@ -74,11 +74,7 @@ DB_PASSWORD=
 cd C:\xampp\mysql\bin
 .\mysql -u root -p
 ```
-**Lưu ý**: Điều chỉnh đường dẫn `C:\xampp\mysql\bin` theo vị trí cài đặt XAMPP của bạn. Các vị trí phổ biến:
-- Windows: `C:\xampp\mysql\bin` hoặc `D:\xampp\mysql\bin`
-- Linux: `/opt/lampp/mysql/bin`
-- macOS: `/Applications/XAMPP/mysql/bin`
-
+**Lưu ý**: Điều chỉnh đường dẫn `C:\xampp\mysql\bin` theo vị trí cài đặt XAMPP.
 Nhấn Enter (mật khẩu mặc định của XAMPP là trống)
 
 ```sql

@@ -403,6 +403,7 @@
                         title="Vui lòng nhập theo định dạng dd/mm/yyyy"
                         style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px;"
                     >
+                    <div class="invalid-feedback" id="NgaySinhError" style="color: #dc3545; font-size: 12px; margin-top: 2px; display: none;"></div>
                     <small style="color: #6c757d; font-size: 12px; margin-top: 4px; display: block;">
                         ⚠️ Độ tuổi phải từ {{ App\Models\QuyDinh::getMinAge() }} đến {{ App\Models\QuyDinh::getMaxAge() }} tuổi
                     </small>
@@ -511,6 +512,7 @@
                         title="Vui lòng nhập theo định dạng dd/mm/yyyy"
                         style="padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px;"
                     >
+                    <div class="invalid-feedback" id="editNgaySinhError" style="color: #dc3545; font-size: 12px; margin-top: 2px; display: none;"></div>
                     <small style="color: #6c757d; font-size: 12px; margin-top: 4px; display: block;">
                         ⚠️ Độ tuổi phải từ {{ App\Models\QuyDinh::getMinAge() }} đến {{ App\Models\QuyDinh::getMaxAge() }} tuổi
                     </small>
@@ -1077,5 +1079,52 @@
         
         return isValid;
     };
+
+    // Real-time validation for NgaySinh (add)
+    const ngaySinhInput = document.getElementById('NgaySinh');
+    const ngaySinhError = document.getElementById('NgaySinhError');
+    if (ngaySinhInput && ngaySinhError) {
+        ngaySinhInput.addEventListener('input', function() {
+            if (!this.value) {
+                ngaySinhError.style.display = 'none';
+                return;
+            }
+            if (!validateDate(this.value)) {
+                ngaySinhError.textContent = 'Ngày sinh không hợp lệ (dd/mm/yyyy)';
+                ngaySinhError.style.display = 'block';
+                return;
+            }
+            const result = validateAge(this.value);
+            if (!result.valid) {
+                ngaySinhError.textContent = result.message;
+                ngaySinhError.style.display = 'block';
+            } else {
+                ngaySinhError.style.display = 'none';
+            }
+        });
+    }
+    // Real-time validation for editNgaySinh (edit)
+    const editNgaySinhInput = document.getElementById('editNgaySinh');
+    const editNgaySinhError = document.getElementById('editNgaySinhError');
+    if (editNgaySinhInput && editNgaySinhError) {
+        editNgaySinhInput.addEventListener('input', function() {
+            if (!this.value) {
+                editNgaySinhError.style.display = 'none';
+                return;
+            }
+            if (!validateDate(this.value)) {
+                editNgaySinhError.textContent = 'Ngày sinh không hợp lệ (dd/mm/yyyy)';
+                editNgaySinhError.style.display = 'block';
+                return;
+            }
+            const result = validateAge(this.value);
+            if (!result.valid) {
+                editNgaySinhError.textContent = result.message;
+                editNgaySinhError.style.display = 'block';
+            } else {
+                editNgaySinhError.style.display = 'none';
+            }
+        });
+    }
 </script>
 @endpush
